@@ -1,0 +1,22 @@
+@"
+# Terraform
+.terraform/
+.terraform.lock.hcl
+*.tfstate
+*.tfstate.backup
+*.tfvars
+override.tf
+
+# AWS
+.aws/
+credentials
+
+# Python
+__pycache__/
+*.pyc
+.env
+
+# OS
+.DS_Store
+*.swp
+"@ | Out-File -FilePath .gitignore -Encoding utf8
