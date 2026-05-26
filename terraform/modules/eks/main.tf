@@ -54,7 +54,7 @@ resource "aws_iam_role_policy_attachment" "node_ecr" {
 resource "aws_eks_cluster" "healthcare_monitor" {
   name     = var.cluster_name
   role_arn = aws_iam_role.cluster.arn
-  version  = "1.29"
+  version  = "1.32"
 
   vpc_config {
     subnet_ids              = var.private_subnet_ids
@@ -86,7 +86,7 @@ resource "aws_eks_node_group" "monitoring" {
   node_group_name = "monitoring-nodes"
   node_role_arn   = aws_iam_role.node.arn
   subnet_ids      = var.private_subnet_ids
-  instance_types  = ["t3.medium"]
+  instance_types  = ["t3.micro"]
 
   scaling_config {
     desired_size = 2
