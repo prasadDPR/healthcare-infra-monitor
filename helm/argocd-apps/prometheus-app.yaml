@@ -6,15 +6,12 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/prasadDPR/healthcare-infra-monitor
-    targetRevision: HEAD
-    path: helm/prometheus
+    repoURL: https://prometheus-community.github.io/helm-charts
+    targetRevision: 65.1.1
+    chart: kube-prometheus-stack
     helm:
       valueFiles:
         - values.yaml
-      chart: kube-prometheus-stack
-      repoURL: https://prometheus-community.github.io/helm-charts
-      targetRevision: 65.1.1
   destination:
     server: https://kubernetes.default.svc
     namespace: monitoring
