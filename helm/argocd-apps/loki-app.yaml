@@ -36,6 +36,10 @@ spec:
             limits:
               memory: 400Mi
               cpu: 200m
+          persistence:
+            enabled: true
+            storageClass: gp2
+            size: 10Gi
         read:
           replicas: 0
         write:
@@ -54,13 +58,3 @@ spec:
           enabled: false
         promtail:
           enabled: false
-  destination:
-    server: https://kubernetes.default.svc
-    namespace: monitoring
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-    syncOptions:
-      - CreateNamespace=true
-      - ServerSideApply=true
