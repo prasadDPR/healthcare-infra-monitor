@@ -7,11 +7,53 @@ spec:
   project: default
   source:
     repoURL: https://grafana.github.io/helm-charts
-    targetRevision: 2.10.3
-    chart: loki-stack
+    targetRevision: 6.55.0
+    chart: loki
     helm:
-      valueFiles:
-        - values.yaml
+      values: |
+        loki:
+          auth_enabled: false
+          commonConfig:
+            replication_factor: 1
+          storage:
+            type: filesystem
+          schemaConfig:
+            configs:
+              - from: "2024-01-01"
+                store: tsdb
+                object_store: filesystem
+                schema: v13
+                index:
+                  prefix: index_
+                  period: 24h
+        deploymentMode: SingleBinary
+        singleBinary:
+          replicas: 1
+          resources:
+            requests:
+              memory: 200Mi
+              cpu: 100m
+            limits:
+              memory: 400Mi
+              cpu: 200m
+        read:
+          replicas: 0
+        write:
+          replicas: 0
+        backend:
+          replicas: 0
+        chunksCache:
+          enabled: false
+        resultsCache:
+          enabled: false
+        lokiCanary:
+          enabled: false
+        test:
+          enabled: false
+        gateway:
+          enabled: false
+        promtail:
+          enabled: false
   destination:
     server: https://kubernetes.default.svc
     namespace: monitoring
